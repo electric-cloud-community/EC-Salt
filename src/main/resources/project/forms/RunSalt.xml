@@ -1,0 +1,67 @@
+<editor>
+    <help>/commander/pages/@PLUGIN_NAME@/@PLUGIN_KEY@_help?s=Administration&amp;ss=Plugins#RunSalt</help>
+    <formElement>
+        <label>Path to salt:</label>
+        <property>Path2Salt</property>
+        <value>salt</value>
+        <documentation>Path to the salt executable</documentation>
+        <required>1</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Output format</label>
+        <property>OutputFormat</property>
+        <value></value>
+        <documentation>Available formats are: raw, text, yaml and json.</documentation>
+        <required>0</required>
+        <type>select</type>
+        <option><name>Text</name><value>--text-out</value></option>
+        <option><name>Raw</name><value>--raw-out</value></option>
+        <option><name>Yaml</name><value>--yaml-out</value></option>
+        <option><name>Json</name><value>--json-out</value></option>
+    </formElement>
+    <formElement>
+        <label>Target</label>
+        <property>Target</property>
+        <value></value>
+        <documentation>Target machines where command will be executed.</documentation>
+        <required>1</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Pcre</label>
+        <property>Pcre</property>
+        <value>0</value>
+        <documentation>If cheched the target expression will be interpreted as a pcre regular expression rather than a shell glob.</documentation>
+        <required>0</required>
+        <type>checkbox</type>
+        <checkedValue>1</checkedValue>
+        <uncheckedValue>0</uncheckedValue>
+    </formElement>
+    <formElement>
+        <label>Grain</label>
+        <property>Grain</property>
+        <value>0</value>
+        <documentation>If cheched the target expression matches values returned by the salt grains system on the minions.</documentation>
+        <required>0</required>
+        <type>checkbox</type>
+        <checkedValue>1</checkedValue>
+        <uncheckedValue>0</uncheckedValue>
+    </formElement>
+    <formElement>
+        <label>Module</label>
+        <property>Module</property>
+        <value></value>
+        <documentation>Name of the module you want to use e.g: "test.ping".</documentation>
+        <required>1</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Args</label>
+        <property>ModuleArgs</property>
+        <value></value>
+        <documentation>Arguments for the previous module</documentation>
+        <required>0</required>
+        <type>entry</type>
+    </formElement>
+</editor>

@@ -1,0 +1,55 @@
+<editor>
+    <help>/commander/pages/@PLUGIN_NAME@/@PLUGIN_KEY@_help?s=Administration&amp;ss=Plugins#SaltFileTransfer</help>
+    <formElement>
+        <label>Path to salt-cp:</label>
+        <property>Path2Saltcp</property>
+        <value>salt-cp</value>
+        <documentation>Path to the salt-cp executable.</documentation>
+        <required>1</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Target</label>
+        <property>Target</property>
+        <value></value>
+        <documentation>Target machines where the file will be copied.</documentation>
+        <required>1</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Pcre</label>
+        <property>Pcre</property>
+        <value>0</value>
+        <documentation>If cheched the target expression will be interpreted as a pcre regular expression rather than a shell glob.</documentation>
+        <required>0</required>
+        <type>checkbox</type>
+        <checkedValue>1</checkedValue>
+        <uncheckedValue>0</uncheckedValue>
+    </formElement>
+    <formElement>
+        <label>Grain</label>
+        <property>Grain</property>
+        <value>0</value>
+        <documentation>If cheched the target expression matches values returned by the salt grains system on the minions.</documentation>
+        <required>0</required>
+        <type>checkbox</type>
+        <checkedValue>1</checkedValue>
+        <uncheckedValue>0</uncheckedValue>
+    </formElement>
+    <formElement>
+        <label>Source</label>
+        <property>Source</property>
+        <value></value>
+        <documentation>Path to the file you want to copy e.g /home/user/myfile.txt</documentation>
+        <required>1</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Destination</label>
+        <property>Dest</property>
+        <value></value>
+        <documentation>Location where you want to copy the file in minions. e.g /tmp.</documentation>
+        <required>1</required>
+        <type>entry</type>
+    </formElement>
+</editor>

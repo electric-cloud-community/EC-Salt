@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="generator"
+          content="HTML Tidy for Windows (vers 14 February 2006), see www.w3.org" />
+    <meta content="text/html; charset=us-ascii"
+          http-equiv="content-type" />
+
+    <title>ElectricFlow Plugin for Salt</title>
+    <link rel="stylesheet"
+          href="../../plugins/@PLUGIN_KEY@/pluginhelp.css"
+          type="text/css"
+          media="screen" />
+</head>
+
+<body>
+    <div class="help">
+        <h1>Salt</h1>
+
+        <p>Plugin Version @PLUGIN_VERSION@</p>
+        <hr style="margin-left: -10px; margin-top: 10px; height: 1px; width: 100%; color: #5981BD;"
+            noshade="noshade" />
+
+        <p>Salt is a distributed remote execution system used to
+        execute commands and query data.<br />
+         It was developed in order to bring the best solutions
+        found in the world of remote execution together and make
+        them better, faster and more malleable. Salt accomplishes
+        this via its ability to handle larger loads of information,
+        and not just dozens, but hundreds or even thousands of
+        individual servers, handle them quickly and through a
+        simple and manageable interface.</p>
+
+        <h2>Salt Links</h2>
+
+        <p>More information can be found at
+        <a href="http://saltstack.org/">this website</a>.</p>
+
+        <h2>ElectricFlow Integration to Salt</h2>
+
+        <p>The plugin calls the Salt, Salt-key and Salt-cp command
+        line and passes the user-provided parameters.</p>
+
+        <h2>Integrated Version</h2>
+
+        <p>This plugin was developed and tested against version
+        salt 0.9.4.pre</p>
+
+        <h1>Plugin Procedures</h1>
+
+        <p>IMPORTANT: For all parameter descriptions below,
+        required parameters are shown in
+        <span class='required'>bold italics</span>.</p>
+
+        <div id="RunSalt">
+            <a name='RunSalt'
+                 id="RunSalt"></a> 
+
+            <h3>RunSalt</h3>
+
+            <p>This procedure allows you to execute salt commands
+            using any salt module you want.</p>
+
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+
+                        <th>Description</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class='required'>Path to salt</td>
+
+                        <td>Path to the salt
+                        executable.(Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Output format</td>
+
+                        <td>Available formats are: raw, text, yaml
+                        and json.</td>
+                    </tr>
+
+                    <tr>
+                        <td class='required'>Target</td>
+
+                        <td>Target machines where command will be
+                        executed.(Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Pcre</td>
+
+                        <td>If cheched the target expression will
+                        be interpreted as a pcre regular expression
+                        rather than a shell glob.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Grain</td>
+
+                        <td>If cheched the target expression
+                        matches values returned by the salt grains
+                        system on the minions.</td>
+                    </tr>
+
+                    <tr>
+                        <td class='required'>Module</td>
+
+                        <td>Name of the module you want to use e.g:
+                        "test.ping".(Required)<br />
+                         List of modules is available
+                        <a href="http://salt.readthedocs.org/en/latest/ref/modules/all/index.html">
+                        here</a></td>
+                    </tr>
+
+                    <tr>
+                        <td>Args</td>
+
+                        <td>Arguments for the previous module</td>
+                    </tr>
+                </tbody>
+            </table><img src="../../plugins/@PLUGIN_KEY@/images/Salt-1.png"
+                 alt="Form" />
+        </div>
+
+        <div id="SaltFileTransfer">
+            <a name='SaltFileTransfer'
+                 id="SaltFileTransfer"></a> 
+
+            <h3>SaltFileTransfer</h3>
+
+            <p>This procedure allows you to copy a file from a
+            machine to n machines with a single command.</p>
+
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+
+                        <th>Description</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class='required'>Path to salt-cp</td>
+
+                        <td>Path to the salt
+                        executable.(Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td class='required'>Target</td>
+
+                        <td>Target machines where the file will be
+                        copied.(Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Pcre</td>
+
+                        <td>If cheched the target expression will
+                        be interpreted as a pcre regular expression
+                        rather than a shell glob.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Grain</td>
+
+                        <td>If cheched the target expression
+                        matches values returned by the salt grains
+                        system on the minions.</td>
+                    </tr>
+
+                    <tr>
+                        <td class='required'>Source</td>
+
+                        <td>Path to the file you want to copy e.g
+                        /home/user/myfile.txt. (Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td class='required'>Destination</td>
+
+                        <td>Location where you want to copy the
+                        file in minions. e.g /tmp. (Required)</td>
+                    </tr>
+                </tbody>
+            </table><img src="../../plugins/@PLUGIN_KEY@/images/Salt-3.png"
+                 alt="Form" />
+        </div>
+
+        <div id="AuthenticationManagement">
+            <a name='AuthenticationManagement'
+                 id="AuthenticationManagement"></a> 
+
+            <h3>AuthenticationManagement</h3>
+
+            <p>This procedure allows you to manage public keys used
+            for authentication.</p>
+
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+
+                        <th>Description</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class='required'>Path to salt-key</td>
+
+                        <td>Path to the salt-key
+                        executable.(Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td class='required'>Action to perform</td>
+
+                        <td>Choose the action you want to
+                        perform.(Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Name</td>
+
+                        <td>Name of the key to add|remove</td>
+                    </tr>
+                </tbody>
+            </table><img src="../../plugins/@PLUGIN_KEY@/images/Salt-5.png"
+                 alt="Form" />
+        </div>
+
+        <h1>Examples and Use Cases</h1>
+
+        <p>In this example we are going to use the Salt plugin to
+        perform remote task</p>
+
+        <ol>
+            <li>Make sure salt-master and salt-minion are running.
+            If not you just need to type: "salt-master -d" and
+            "salt-minion -d"</li>
+
+            <li>Once salt master and minions are running we need to
+            authenticate the connections. So we are going to create
+            an AuthenticationManagement procedure to make sure we
+            have permissions.<br />
+             In this case I am going to add all available
+            keys<br />
+             <img src="../../plugins/@PLUGIN_KEY@/images/Salt-5.png"
+                 alt="authenticate" /></li>
+
+            <li>Now run the procedure, if everything is right you
+            will see something like:<br />
+             <img src="../../plugins/@PLUGIN_KEY@/images/Salt-6.png"
+                 alt="authenticate" /></li>
+
+            <li>In order to test, we are going to create a
+            procedure that will use the cmd.exec_code module to
+            execute perl code.<br />
+             <img src="../../plugins/@PLUGIN_KEY@/images/Salt-1.png"
+                 alt="Test" /></li>
+
+            <li>Run the procedure and see the results</li>
+
+            <li>If the step was successful you will see something
+            like:<br />
+             <img src="../../plugins/@PLUGIN_KEY@/images/Salt-2.png"
+                 alt="result" /></li>
+
+            <li>Finally we are going to copy a file to the minion
+            machines by creating a SaltFileTransfer procedure<br />
+             <img src="../../plugins/@PLUGIN_KEY@/images/Salt-3.png"
+                 alt="Test" /></li>
+
+            <li>When the procedure finish the file should be
+            available in the /temp folder of the minion machines.<br />
+            <img src="../../plugins/@PLUGIN_KEY@/images/Salt-4.png"
+                 alt="Test" /></li>
+        </ol>
+
+        <h1>Release Notes</h1>
+
+        <h2>@PLUGIN_KEY@-1.0.0</h2>
+
+        <ul>
+            <li>Procedures included: RunSalt, SaltFileTransfer and
+            AuthenticationManagement</li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<editor>
+    <help>/commander/pages/@PLUGIN_NAME@/@PLUGIN_KEY@_help?s=Administration&amp;ss=Plugins#AuthenticationManagement</help>
+    <formElement>
+        <label>Path to salt-key:</label>
+        <property>Path2Saltkey</property>
+        <value>salt-key</value>
+        <documentation>Path to the salt-key executable.</documentation>
+        <required>1</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Action to perform:</label>
+        <property>Action</property>
+        <value></value>
+        <documentation>Choose the action you want to perform.</documentation>
+        <required>0</required>
+        <type>select</type>
+        <option><name>Add</name><value>--accept</value></option>
+        <option><name>Add all</name><value>--accept-all</value></option>
+        <option><name>Remove</name><value>--delete</value></option>
+        <option><name>List all</name><value>--list-all</value></option>
+    </formElement>
+    <formElement>
+        <label>Name</label>
+        <property>Name</property>
+        <value></value>
+        <documentation>Name of the key to add|remove</documentation>
+        <required>0</required>
+        <type>entry</type>
+    </formElement>
+</editor>

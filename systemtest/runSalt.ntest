@@ -1,0 +1,371 @@
+# -*-Perl-*-
+
+# runSalt.ntest -
+#
+# ECSalt
+#
+# Copyright (c) 2005-2010 Electric Cloud, Inc.
+# All rights reserved
+
+use strict;
+use warnings;
+use ECTest;
+use ECSelenium;
+
+ 
+# system tests
+
+
+require "$::gTestFileDir/Salt-common.ntest";
+
+$::gProjectImported = 0;
+$::gtestProjectName = 'Salt';
+
+my $outcome = '';
+
+########################################################################
+# importProject - contains the whole process to be done by the plugin, 
+#                 it builds the command line, sets the properties and 
+#                 the working directory
+#
+# Arguments:
+#   -none
+#
+# Returns:
+#   -nothing
+#
+########################################################################
+sub importProject() {
+
+    assertOK($::N->import({ file =>"$::gTestFileDir/import.xml",
+                            path  => "/projects/Salt",
+                            force => 1
+                           } ), 'import runCommandLine');
+     
+    assertOK($::N->getProcedure($::gtestProjectName, 'AddKey'), 'AddKey procedure exists');
+           
+    assertOK($::N->getProcedure($::gtestProjectName, 'CopyFile'), 'CopyFile procedure exists');
+     
+    assertOK($::N->getProcedure($::gtestProjectName, 'DiskUsage'), 'DiskUsage procedure exists');
+      
+    assertOK($::N->getProcedure($::gtestProjectName, 'ExecPerlCode'), 'ExecPerlCode procedure exists');
+     
+    assertOK($::N->getProcedure($::gtestProjectName, 'ListAvailableKeys'), 'ListAvailableKeys procedure exists');
+ 
+    assertOK($::N->getProcedure($::gtestProjectName, 'RemoveKey'), 'RemoveKey procedure exists');
+
+    assertOK($::N->getProcedure($::gtestProjectName, 'RunCommand'), 'RunCommand procedure exists');     
+        
+    $::gProjectImported = 1;
+    
+ }
+
+########################################################################
+# doSetup - imports project if it hasn't been already imported
+#
+# Arguments:
+#   -none
+#
+# Returns:
+#   -nothing
+#
+########################################################################
+sub doSetup() {
+  if(! $::gProjectImported) {
+      importProject();
+  }
+}
+
+ntest "RemoveKey", {}, sub {
+
+    doSetup();
+    # run test job
+
+    my $xpath = $::N->runProcedure($::gtestProjectName, {
+                                procedureName => "RemoveKey",
+                                pollInterval  => '1',
+                                timeout => 600,
+                                actualParameter => []
+                                });
+
+    # make sure it finished
+    my $jobId = 0;
+    my $status = '';
+
+    assertOK($xpath, 'runProcedure with errors');
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+        $outcome = $xpath->findvalue("//outcome");
+
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+
+        #abort if job did not finish
+        if ($status ne 'completed') {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+
+    # get the job details
+    $xpath = $::N->getJobDetails($jobId);
+
+    # get the value of the makeCommandLine property
+    my $cmd = $xpath->findvalue("//property[propertyName='commandLine']/value");
+
+    # make sure the $cmd and $dir are what was expected
+    assertEq('"salt-key" --delete "test"', $cmd, 'command line doesn\'t match expected output');
+
+};
+
+ntest "AddKey", {}, sub {
+
+    doSetup();
+    # run test job
+
+    my $xpath = $::N->runProcedure($::gtestProjectName, {
+                                procedureName => "AddKey",
+                                pollInterval  => '1',
+                                timeout => 600,
+                                actualParameter => []
+                                });
+
+    # make sure it finished
+    my $jobId = 0;
+    my $status = '';
+
+    assertOK($xpath, 'runProcedure with errors');
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+        $outcome = $xpath->findvalue("//outcome");
+
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+
+        #abort if job did not finish
+        if ($status ne 'completed') {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+
+    # get the job details
+    $xpath = $::N->getJobDetails($jobId);
+
+    # get the value of the makeCommandLine property
+    my $cmd = $xpath->findvalue("//property[propertyName='commandLine']/value");
+
+    # make sure the $cmd and $dir are what was expected
+    assertEq('"salt-key" --accept "test"', $cmd, 'command line doesn\'t match expected output');
+
+};
+
+ntest "ListAvailableKeys", {}, sub {
+
+    doSetup();
+    # run test job
+
+    my $xpath = $::N->runProcedure($::gtestProjectName, {
+                                procedureName => "ListAvailableKeys",
+                                pollInterval  => '1',
+                                timeout => 600,
+                                actualParameter => []
+                                });
+
+    # make sure it finished
+    my $jobId = 0;
+    my $status = '';
+
+    assertOK($xpath, 'runProcedure with errors');
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+        $outcome = $xpath->findvalue("//outcome");
+
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+
+        #abort if job did not finish
+        if ($status ne 'completed') {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+
+    # get the job details
+    $xpath = $::N->getJobDetails($jobId);
+
+    # get the value of the makeCommandLine property
+    my $cmd = $xpath->findvalue("//property[propertyName='commandLine']/value");
+
+    # make sure the $cmd and $dir are what was expected
+    assertEq('"salt-key" --list-all', $cmd, 'command line doesn\'t match expected output');
+
+};
+
+ntest "RunCommand", {}, sub {
+
+    doSetup();
+    # run test job
+
+    my $xpath = $::N->runProcedure($::gtestProjectName, {
+                                procedureName => "RunCommand",
+                                pollInterval  => '1',
+                                timeout => 600,
+                                actualParameter => []
+                                });
+
+    # make sure it finished
+    my $jobId = 0;
+    my $status = '';
+
+    assertOK($xpath, 'runProcedure with errors');
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+        $outcome = $xpath->findvalue("//outcome");
+
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+
+        #abort if job did not finish
+        if ($status ne 'completed') {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+
+    # get the job details
+    $xpath = $::N->getJobDetails($jobId);
+
+    # get the value of the makeCommandLine property
+    my $cmd = $xpath->findvalue("//property[propertyName='commandLine']/value");
+
+    # make sure the $cmd and $dir are what was expected
+    assertEq(qq{"salt" --json-out '*' test.ping}, $cmd, 'command line doesn\'t match expected output');
+
+};
+
+ntest "DiskUsage", {}, sub {
+
+    doSetup();
+    # run test job
+
+    my $xpath = $::N->runProcedure($::gtestProjectName, {
+                                procedureName => "DiskUsage",
+                                pollInterval  => '1',
+                                timeout => 600,
+                                actualParameter => []
+                                });
+
+    # make sure it finished
+    my $jobId = 0;
+    my $status = '';
+
+    assertOK($xpath, 'runProcedure with errors');
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+        $outcome = $xpath->findvalue("//outcome");
+
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+
+        #abort if job did not finish
+        if ($status ne 'completed') {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+
+    # get the job details
+    $xpath = $::N->getJobDetails($jobId);
+
+    # get the value of the makeCommandLine property
+    my $cmd = $xpath->findvalue("//property[propertyName='commandLine']/value");
+
+    # make sure the $cmd and $dir are what was expected
+    assertEq(qq{"salt" --yaml-out -G 'os:Debian' disk.usage}, $cmd, 'command line doesn\'t match expected output');
+
+};
+
+ntest "ExecPerlCode", {}, sub {
+
+    doSetup();
+    # run test job
+
+    my $xpath = $::N->runProcedure($::gtestProjectName, {
+                                procedureName => "ExecPerlCode",
+                                pollInterval  => '1',
+                                timeout => 600,
+                                actualParameter => []
+                                });
+
+    # make sure it finished
+    my $jobId = 0;
+    my $status = '';
+
+    assertOK($xpath, 'runProcedure with errors');
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+        $outcome = $xpath->findvalue("//outcome");
+
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+
+        #abort if job did not finish
+        if ($status ne 'completed') {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+
+    # get the job details
+    $xpath = $::N->getJobDetails($jobId);
+
+    # get the value of the makeCommandLine property
+    my $cmd = $xpath->findvalue("//property[propertyName='commandLine']/value");
+
+    # make sure the $cmd and $dir are what was expected
+    assertEq(qq{"salt" --json-out '*' cmd.exec_code perl 'print "hello world";'}, $cmd, 'command line doesn\'t match expected output');
+
+};
+
+ntest "CopyFile", {}, sub {
+
+    doSetup();
+    # run test job
+
+    my $xpath = $::N->runProcedure($::gtestProjectName, {
+                                procedureName => "CopyFile",
+                                pollInterval  => '1',
+                                timeout => 600,
+                                actualParameter => []
+                                });
+
+    # make sure it finished
+    my $jobId = 0;
+    my $status = '';
+
+    assertOK($xpath, 'runProcedure with errors');
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+        $outcome = $xpath->findvalue("//outcome");
+
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+
+        #abort if job did not finish
+        if ($status ne 'completed') {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+
+    # get the job details
+    $xpath = $::N->getJobDetails($jobId);
+
+    # get the value of the makeCommandLine property
+    my $cmd = $xpath->findvalue("//property[propertyName='commandLine']/value");
+
+    # make sure the $cmd and $dir are what was expected
+    assertEq(qq{"salt-cp" '*' "/home/carlos/Desktop/file.txt" "/tmp"}, $cmd, 'command line doesn\'t match expected output');
+
+};
