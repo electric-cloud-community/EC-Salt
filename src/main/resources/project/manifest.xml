@@ -1,0 +1,35 @@
+<?xml version='1.0' standalone='yes'?>
+<fileset>
+  <file>
+    <path>SaltDriver.pl</path>
+    <xpath>//property[propertyName=&quot;SaltDriver&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>SaltCpDriver.pl</path>
+    <xpath>//property[propertyName=&quot;SaltCpDriver&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>SaltKeyDriver.pl</path>
+    <xpath>//property[propertyName=&quot;SaltKeyDriver&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>postp_matchers.pl</path>
+    <xpath>//property[propertyName=&quot;postp_matchers&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>forms/RunSalt.xml</path>
+    <xpath>//procedure[procedureName=&quot;RunSalt&quot;]/propertySheet/property[propertyName=&quot;ec_parameterForm&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>forms/SaltFileTransfer.xml</path>
+    <xpath>//procedure[procedureName=&quot;SaltFileTransfer&quot;]/propertySheet/property[propertyName=&quot;ec_parameterForm&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>forms/AuthenticationManagement.xml</path>
+    <xpath>//procedure[procedureName=&quot;AuthenticationManagement&quot;]/propertySheet/property[propertyName=&quot;ec_parameterForm&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>ec_setup.pl</path>
+    <xpath>//property[propertyName=&quot;ec_setup&quot;]/value</xpath>
+  </file>
+</fileset>
