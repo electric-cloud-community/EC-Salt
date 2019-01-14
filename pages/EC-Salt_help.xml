@@ -289,7 +289,10 @@
         </ol>
 
         <h1>Release Notes</h1>
-
+        <h2>@PLUGIN_KEY@-1.0.1</h2>
+        <ul>
+            <li>The plugin icon has been updated.</li>
+        </ul>
         <h2>@PLUGIN_KEY@-1.0.0</h2>
 
         <ul>
